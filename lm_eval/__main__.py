@@ -271,6 +271,31 @@ def cli_evaluate(args: Union[argparse.Namespace, None] = None) -> None:
         parser = setup_parser()
         args = parse_eval_args(parser)
 
+    if args.output_path is None:
+        model_args = {}
+        for arg in args.model_args.split(','):
+            key, value = arg.split('=')
+            model_args[key] = value
+
+        model_path = model_args['pretrained'].strip('/').split('/')
+        if 'checkpoint-' in model_path[-1]:
+            model_name = '/'.join(model_path[-2:])
+        else:
+            model_name = model_path[-1]
+
+        args.output_path = "results/{}/{}".format(args.tasks, model_name)
+
+    if os.path.exists(args.output_path):
+        print('[INFO] {} is already exists'.format(args.output_path ))
+        exit()
+    else:
+        os.makedirs(args.output_path)
+        args.tmp_file = '{}/running.tmp'.format(args.output_path)
+        with open(args.tmp_file, mode='w', encoding='utf-8') as fp:
+            pass
+
+    print('[INFO] args.output_path = {}'.format(args.output_path))
+
     if args.wandb_args:
         wandb_logger = WandbLogger(**simple_parse_args_string(args.wandb_args))
 
@@ -455,6 +480,8 @@ def cli_evaluate(args: Union[argparse.Namespace, None] = None) -> None:
         if args.wandb_args:
             # Tear down wandb run once all the logging is done.
             wandb_logger.run.finish()
+
+        os.remove(args.tmp_file)
 
 
 if __name__ == "__main__":
