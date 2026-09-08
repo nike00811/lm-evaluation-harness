@@ -124,6 +124,10 @@ conflicts = [
       { extra = "tasks" },
     ],
     [
+      { extra = "acpbench" },
+      { extra = "vllm" },
+    ],
+    [
       { extra = "gptq" },
       { extra = "vllm" },
     ],

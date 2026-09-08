@@ -21,7 +21,8 @@ __pycache__/
 /dist/
 
 # IDE & editor settings
-.vscode/
+.vscode/*
+!.vscode/settings.json
 .idea/
 .zed/
 *.swp
