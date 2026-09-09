@@ -53,8 +53,16 @@ Repository = "https://github.com/EleutherAI/lm-evaluation-harness"
 # Model backend dependencies
 api = ["requests", "aiohttp", "tenacity", "tqdm", "tiktoken"]
 archiver = ["jsonlines", "zstandard"]
-hf = ["transformers>=4.1","torch>=1.8", "accelerate>=0.26.0", "peft>=0.2.0",]
-vllm = ["vllm>=0.18"]
+hf = [
+    "transformers==5.15.1",
+    "torch==2.8.0+cu129",
+    "torchvision==0.23.0+cu129",
+    "torchaudio==2.8.0+cu129",
+    "accelerate==1.14.0",
+    "peft>=0.2.0",
+    "flash-attn",
+]
+vllm = ["vllm>=0.28"]
 gptq = ["auto-gptq[triton]>=0.6.0"]
 gptqmodel = ["gptqmodel>=1.0.9"]
 ipex = ["optimum-intel"]
@@ -131,7 +139,26 @@ conflicts = [
       { extra = "gptq" },
       { extra = "vllm" },
     ],
+    [
+      { extra = "gptq" },
+      { extra = "hf" },
+    ],
+    [
+      { extra = "hf" },
+      { extra = "vllm" },
+    ],
 ]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu129" }
+torchvision = { index = "pytorch-cu129" }
+torchaudio = { index = "pytorch-cu129" }
+flash-attn = { url = "https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu12torch2.8cxx11abiTRUE-cp312-cp312-linux_x86_64.whl" }
+
+[[tool.uv.index]]
+name = "pytorch-cu129"
+url = "https://download.pytorch.org/whl/cu129"
+explicit = true
 
 [tool.pymarkdown]
 plugins.md013.enabled = false # line-length

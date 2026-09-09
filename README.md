@@ -58,6 +58,18 @@ The Language Model Evaluation Harness is the backend for 🤗 Hugging Face's pop
 
 ## Install
 
+### Using `uv` (Recommended)
+
+Clone the repository and synchronize the environment with the required backends:
+
+```bash
+git clone --depth 1 https://github.com/EleutherAI/lm-evaluation-harness
+cd lm-evaluation-harness
+uv sync --extra hf --extra vllm
+```
+
+### Using `pip`
+
 To install the `lm-eval` package from the github repository, run:
 
 ```bash
@@ -66,7 +78,7 @@ cd lm-evaluation-harness
 pip install -e .
 ```
 
-### Installing Model Backends
+#### Installing Model Backends
 
 The base installation provides the core evaluation framework. **Model backends must be installed separately** using optional extras:
 
