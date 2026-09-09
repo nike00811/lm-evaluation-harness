@@ -270,9 +270,10 @@ class EvaluationTracker:
                 self.date_id = datetime.now().isoformat().replace(":", "-")
                 if path.suffix == ".json":
                     path.parent.mkdir(parents=True, exist_ok=True)
-                    file_results_aggregated = path.with_name(
-                        f"{path.stem}_{self.date_id}.json"
-                    )
+                    # file_results_aggregated = path.with_name(
+                    #     f"{path.stem}_{self.date_id}.json"
+                    # )
+                    file_results_aggregated = path
                 else:
                     path = path / str(self.general_config_tracker.model_name_sanitized)
                     path.mkdir(parents=True, exist_ok=True)
