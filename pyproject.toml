@@ -31,7 +31,8 @@ dependencies = [
     "word2number",
     "more_itertools",
     "typing_extensions",
-    "tqdm>=4.59.0"
+    "tqdm>=4.59.0",
+    "protobuf>=6.33.6",
 ]
 
 [tool.setuptools.packages.find]
